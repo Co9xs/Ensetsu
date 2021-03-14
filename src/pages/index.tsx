@@ -1,9 +1,10 @@
 import { QuestionCardList } from '../components/QuestionCardList';
+import { PageBase } from '../style';
 
 const IndexPage = () => (
-  <div style={{ width: '100%' }}>
+  <PageBase>
     <QuestionCardList/>
-  </div>
+  </PageBase>
 )
 
 export default IndexPage

@@ -1,8 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import { BaloonIcon } from './icons';
-import { TooltipContainer } from './TooltipContainer';
 import { Question } from '../types'
+import { EnsetsuIcon } from '../components/icons';
 
 type Props = {
   question: Question
@@ -21,21 +20,19 @@ export const QuestionCard: React.VFC<Props> = (props) => {
         <QuestionCardContent>
           { question.body }
         </QuestionCardContent>
-        <QuestionCardBodyLogo>ensetsu.dev</QuestionCardBodyLogo>
+        <QuestionCardBodyLogo>
+          <EnsetsuIcon size="sm"/>
+        </QuestionCardBodyLogo>
       </QuestionCardBody>
       <QuestionCardFooter>
-        <TooltipContainer text="コメントを見る">
-          <BaloonIcon />
-        </TooltipContainer>
       </QuestionCardFooter>
     </QuestionCardBase>
   )
 }
 
 const QuestionCardBase = styled.div`
-  padding: 8px 18px;
-  min-height: 85px;
-  margin-top: .7rem;
+  padding: 8px 16px 16px;
+  margin-top: 1rem;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
@@ -56,8 +53,11 @@ const QuestionCardBadge = styled.span`
 const QuestionCardBody = styled.div`
   background-color: #5EB9BA;
   border-radius: 5px;
-  height: 300px;
-  padding: 24px;
+  min-height: 300px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const QuestionCardBodyLogo = styled.p`
@@ -65,10 +65,10 @@ const QuestionCardBodyLogo = styled.p`
   font-size: 14px;
 `;
 
-const QuestionCardContent = styled.div`
+const QuestionCardContent = styled.h3`
   background-color: #FFF;
   border-radius: 5px;
-  height: 220px;
+  min-height: 230px;
   text-align: center;
   padding: 16px;
 `;
