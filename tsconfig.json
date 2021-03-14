@@ -1,4 +1,10 @@
 {
+  "baseUrl": ".",
+  "paths": {
+    "~/*": [
+      "./*"
+    ]
+  },
   "compilerOptions": {
     "allowJs": true,
     "alwaysStrict": true,
