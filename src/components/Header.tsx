@@ -70,7 +70,7 @@ const HeaderLinkList = styled.ul`
   padding: 0;
   margin: 0; 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 `
 
 const HeaderLinkItem = styled.li`

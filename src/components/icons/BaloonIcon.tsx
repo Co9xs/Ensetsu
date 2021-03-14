@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const BaloonIcon: React.VFC = () => (
   <SvgBase>
-    <svg width="20px" height="20px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512">
+    <svg width="16px" height="16px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512">
       <g>
         <path d="M511.981,222.088c-0.53-49.833-20.028-96.577-54.949-131.626C422,55.247,375.329,35.849,325.55,35.849H186.431
           C83.64,35.868,0,119.489,0,222.253c0,102.773,83.64,186.412,186.431,186.44h102.81c2.704,0,4.13,1.142,4.843,2.102

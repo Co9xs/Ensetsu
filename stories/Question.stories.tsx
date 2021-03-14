@@ -1,4 +1,4 @@
-import { Question } from '../src/components/Question';
+import { Question } from '../src/components/QuestionCard';
 
 export default {
   title: 'Component/Question',
