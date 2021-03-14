@@ -20,7 +20,7 @@ export const Question = () => (
 
 const QuestionBase = styled.div`
   border: 2px solid #333;
-  padding: 10px 20px;
+  padding: 8px 16px;
   border-radius: 5px;
 `;
 
@@ -29,12 +29,10 @@ const QuestionHeading = styled.h3`
 `;
 
 const QuestionContent = styled.div`
-  width: 100%;
   border: 1ps solid #333;
 `;
 
 const QuestionFooter = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
 `;

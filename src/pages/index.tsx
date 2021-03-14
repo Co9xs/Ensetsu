@@ -1,7 +1,8 @@
-import Link from 'next/link'
-
+import { Question } from '../components/Question'
 const IndexPage = () => (
-  <div>index</div>
+  <div style={{ width: '100%' }}>
+  </div>
 )
 
 export default IndexPage
+
