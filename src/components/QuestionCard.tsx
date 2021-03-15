@@ -21,7 +21,7 @@ export const QuestionCard: React.VFC<Props> = (props) => {
           { question.body }
         </QuestionCardContent>
         <QuestionCardBodyLogo>
-          <EnsetsuIcon size="sm"/>
+          <EnsetsuIcon size="sm" />
         </QuestionCardBodyLogo>
       </QuestionCardBody>
       <QuestionCardFooter>
@@ -60,7 +60,7 @@ const QuestionCardBody = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionCardBodyLogo = styled.p`
+const QuestionCardBodyLogo = styled.div`
   text-align: center;
   font-size: 14px;
 `;
