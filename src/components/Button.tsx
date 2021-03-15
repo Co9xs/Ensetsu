@@ -5,6 +5,7 @@ type Props = {
   label: string,
   icon?: JSX.Element,
 }
+
 export const Button: React.VFC<Props> = (props) => {
   const { label } = props;
   return (
