@@ -7,20 +7,28 @@ type Props = {
 }
 
 export const Button: React.VFC<Props> = (props) => {
-  const { label } = props;
+  const { label, icon } = props;
   return (
     <ButtonBase>
-      {label}
+      <ButtonIcon>{icon}</ButtonIcon>
+      <ButtonText>{label}</ButtonText>
     </ButtonBase>
   )
 };
 
 const ButtonBase = styled.button`
-  padding: 4px 8px;
+  padding: 6px 16px;
   font-size: 14px;
   font-weight: bold;
   background-color: #3EA8FF;
   border: none;
   border-radius: 3px;
   color: #FFF;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
+
+const ButtonIcon = styled.span``
+
+const ButtonText = styled.span``

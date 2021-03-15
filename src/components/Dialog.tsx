@@ -83,17 +83,18 @@ const DialogContent = styled.div`
   width: 400px;
   max-width: 86vw;
   text-align: center;
-  padding: .25rem .5rem;
+  padding: .25rem .5rem .5rem;
   box-shadow: 0 3px 10px rgb(0 22 103 / 20%);
   line-height: 1.7;
   background: #FFF;
-  z-index: 20;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
+	transition: all 0.5s;
+	opacity: 0;
   &[data-dialog-active="true"] {
-    z-index: 20;
+    opacity: 1;
   }
 `;
 

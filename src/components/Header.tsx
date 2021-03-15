@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
 import { LinkItems } from '../utils'
 import { Button } from './Button'
 import { useRouter } from 'next/router'
 import { EnsetsuIcon } from './icons'
+import { useDialog } from '../hooks'
+import { LoginDialog } from '../components/LoginDialog'
+import { AuthContext } from '../context/AuthProvider'
 
 export const Header: React.FC = () => {
   const router = useRouter()
+  const { currentUser } = useContext(AuthContext);
+  const [dialogOpen, setDialogOpen, toggleDialog] = useDialog(false);
   return (
     <HeaderBase>
       <HeaderInner>
@@ -15,8 +20,17 @@ export const Header: React.FC = () => {
           <HeaderLogo>
             <EnsetsuIcon size="md"/>
           </HeaderLogo>
-          <Button label="Login"/>
+          <HeaderButton onClick={toggleDialog}>
+            <Button label="Login"/>
+          </HeaderButton>
         </HeaderTop>
+        <HeaderDialog>
+          <LoginDialog
+            dialogOpen={dialogOpen}
+            setDialogOpen={setDialogOpen}
+            handleClose={() => setDialogOpen(false)}
+          />
+        </HeaderDialog>
         <HeaderLinkList>
           {LinkItems.map(item => (
             <HeaderLinkItem key={item.label}>
@@ -41,16 +55,6 @@ const HeaderInner = styled.nav`
   max-width: 700px;
   margin: auto;
   padding: 16px 16px 0;
-  a, a:visited {
-    text-decoration: none;
-    color: #93A5B1;
-    padding: .5rem 0;
-    display: block;
-    &[aria-current] {
-      border-bottom: 2px solid #333;
-      color: #333;
-    }
-  }
 `
 
 const HeaderTop = styled.div`
@@ -67,6 +71,9 @@ const HeaderLogo = styled.h1`
 const HeaderButton = styled.div`
 `
 
+const HeaderDialog = styled.div`
+`
+
 const HeaderLinkList = styled.ul`
   padding: 0;
   margin: 0; 
@@ -79,10 +86,14 @@ const HeaderLinkItem = styled.li`
   font-weight: 600;
   font-size: 14px;
   list-style: none;
-  a {
-    padding:  4px 8px;
-  }
-  a[aria-current] {
-    border-bottom: 2px solid #333;
+  a, a:visited {
+    text-decoration: none;
+    color: #93A5B1;
+    padding: .5rem 0;
+    display: block;
+    &[aria-current] {
+      border-bottom: 2px solid #333;
+      color: #333;
+    }
   }
 `

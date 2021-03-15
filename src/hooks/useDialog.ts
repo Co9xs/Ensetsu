@@ -6,8 +6,6 @@ export const useDialog = (initialMode = false): [
   () => void
 ] => {
   const [dialogOpen, setDialogOpen] = useState<boolean>(initialMode)
-  const toggle = () => {
-    setDialogOpen(!dialogOpen)
-  }
+  const toggle = () => setDialogOpen(!dialogOpen)
   return [dialogOpen, setDialogOpen, toggle] 
 }
