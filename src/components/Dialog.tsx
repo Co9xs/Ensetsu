@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import styled from 'styled-components';
+import { CrossIcon } from './icons';
 
 type Props = {
   dialogOpen: boolean,
@@ -44,8 +45,14 @@ export const Dialog: React.FC<Props> = (props) => {
     <DialogBase>
       <DialogBackground data-dialog-active={dialogOpen}>
         <DialogContent data-dialog-active={dialogOpen} ref={dialogRef}>
-          <span onClick={closeButtonClickHandler}>x</span>
-          { children }
+          <DialogHeader>
+            <DialogCloseIcon onClick={closeButtonClickHandler}>
+              <CrossIcon/>
+            </DialogCloseIcon>
+          </DialogHeader>
+          <DialogBody>
+            { children }
+          </DialogBody>
         </DialogContent>
       </DialogBackground>
     </DialogBase>
@@ -62,7 +69,7 @@ const DialogBackground = styled.div`
   top: 0;
   right: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.74);
+  background-color: rgba(0,0,0,0.25);
   z-index: 10;
   overflow: hidden;
   display: none;
@@ -76,7 +83,7 @@ const DialogContent = styled.div`
   width: 400px;
   max-width: 86vw;
   text-align: center;
-  padding: 2.3rem 1.7rem;
+  padding: .25rem .5rem;
   box-shadow: 0 3px 10px rgb(0 22 103 / 20%);
   line-height: 1.7;
   background: #FFF;
@@ -88,4 +95,16 @@ const DialogContent = styled.div`
   &[data-dialog-active="true"] {
     z-index: 20;
   }
+`;
+
+const DialogHeader = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const DialogCloseIcon = styled.div`
+  cursor: pointer;
+`;
+
+const DialogBody = styled.div`
 `;
