@@ -1,4 +1,4 @@
-export const LinkItems = [
+export const linkItems = [
   {
     label: 'All',
     href: '/'

@@ -6,3 +6,8 @@ export type Question = {
   category: string,
   id: string,
 }
+
+export type LinkItem = {
+  label: string,
+  href: string
+}
