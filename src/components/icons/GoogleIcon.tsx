@@ -10,7 +10,9 @@ export const GoogleIcon: React.VFC = () => (
 )
 
 const SvgBase = styled.div`
-  width: 18px;
-  height: 18px;
+  & > svg {
+    vertical-align: bottom;
+  }
+  line-height: 1;
 `
 

@@ -13,4 +13,8 @@ export const CrossIcon: React.VFC = () => (
 )
 
 const SvgBase = styled.div`
+  & > svg {
+    vertical-align: bottom;
+  }
+  line-height: 1;
 `

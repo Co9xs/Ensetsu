@@ -12,8 +12,8 @@ export const EnsetsuIcon: React.VFC<Props> = (props) => {
   return (
     <SvgBase>
       <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-      width={width} height={height} viewBox="0 0 120 32"
-      preserveAspectRatio="xMidYMid meet">
+        width={width} height={height} viewBox="0 0 120 32"
+        preserveAspectRatio="xMidYMid meet">
         <g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)"
         fill="#000000" stroke="none">
           <path d="M650 275 c0 -20 -5 -25 -25 -25 -18 0 -25 -5 -25 -20 0 -14 7 -20 24
@@ -40,4 +40,9 @@ export const EnsetsuIcon: React.VFC<Props> = (props) => {
   )
 }
 
-const SvgBase = styled.div``
+const SvgBase = styled.div`
+  & > svg {
+    vertical-align: bottom;
+  }
+  line-height: 1;
+`

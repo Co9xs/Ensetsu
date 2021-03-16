@@ -22,4 +22,9 @@ export const BaloonIcon: React.VFC = () => (
   </SvgBase>
 )
 
-const SvgBase = styled.div``
+const SvgBase = styled.div`
+  & > svg {
+    vertical-align: bottom;
+  }
+  line-height: 1;
+`
