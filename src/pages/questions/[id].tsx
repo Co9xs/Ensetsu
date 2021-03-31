@@ -1,8 +1,9 @@
 import { GetStaticProps } from 'next'
 import { PageBase } from '../../style';
-import { getQuestion, getQuestions } from '../../services';
 import { Question } from '../../types';
 import { QuestionCard } from '../../components/QuestionCard';
+import { Button } from '../../components/Button';
+import { getQuestion, getQuestions } from '../../services';
 
 type Props = {
   question: Question
@@ -11,7 +12,8 @@ type Props = {
 const QuestionId = ({ question }: Props) => {
   return (
     <PageBase>
-      <QuestionCard question={question}/>
+      <QuestionCard question={question} />
+      <Button label="自分の回答を投稿する"/>
     </PageBase>
   )
 }

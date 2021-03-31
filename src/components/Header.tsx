@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { EnsetsuIcon } from './icons'
 import { UserAuthInfo } from './UserAuthInfo'
-import { RouterNav } from './RouterNav'
-import { linkItems } from '../utils'
 
 export const Header: React.FC = () => {
   return (
@@ -17,9 +15,6 @@ export const Header: React.FC = () => {
             <UserAuthInfo/>
           </HeaderAuth>
         </HeaderTop>
-        <HeaderBottom>
-          <RouterNav linkItems={linkItems}/>
-        </HeaderBottom>
       </HeaderInner>
     </HeaderBase>
   )
@@ -28,7 +23,6 @@ export const Header: React.FC = () => {
 const HeaderBase = styled.div`
   width: 100%;
   background: #fff;
-  border-bottom: solid 1px #EFEFEF;
   box-sizing: content-box;
 `
 
@@ -44,12 +38,7 @@ const HeaderTop = styled.div`
   align-items: center;
   margin-bottom: 12px;
 `
-
-const HeaderBottom = styled.div`
-`
-
 const HeaderLogo = styled.h1`
   font-size: 23px;
 `
-
 const HeaderAuth = styled.div``

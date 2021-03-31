@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Question } from '../types'
-import { EnsetsuIcon } from '../components/icons';
+import { StockIcon } from './icons';
 
 type Props = {
   question: Question
@@ -12,68 +12,49 @@ export const QuestionCard: React.VFC<Props> = (props) => {
   return (
     <QuestionCardBase>
       <QuestionCardHeader>
-        <QuestionCardBadge>
-          { question.category }
-        </QuestionCardBadge>
+        <QuestionCardDate>
+          2021年03月31日に投稿
+        </QuestionCardDate>
       </QuestionCardHeader>
       <QuestionCardBody>
-        <QuestionCardContent>
           { question.body }
-        </QuestionCardContent>
-        <QuestionCardBodyLogo>
-          <EnsetsuIcon size="sm" />
-        </QuestionCardBodyLogo>
       </QuestionCardBody>
       <QuestionCardFooter>
+        <QuestionCardIconWrapper>
+          <StockIcon/>
+        </QuestionCardIconWrapper>
       </QuestionCardFooter>
     </QuestionCardBase>
   )
 }
 
 const QuestionCardBase = styled.div`
-  padding: 8px 16px 16px;
-  margin-top: 1rem;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%);
+  width: 100%;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  padding: 16px;
 `;
 
 const QuestionCardHeader = styled.div`
   margin-bottom: 8px;
 `;
 
-const QuestionCardBadge = styled.span`
-  background: #EE6557;
-  font-size: 12px;
-  color: #fff;
-  border-radius: 15px;
-  padding: 4px 8px;
+const QuestionCardDate = styled.time`
+  font-size: 14px;
+  color: rgba(0,0,0,0.6);
+  `
+const QuestionCardIconWrapper = styled.span`
+  border: 2px solid rgba(0,0,0,0.6);
+  padding: 8px;
+  border-radius: 50%;
 `;
 
 const QuestionCardBody = styled.div`
-  background-color: #5EB9BA;
-  border-radius: 5px;
-  min-height: 300px;
-  padding: 16px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  font-weight: bold;
+  font-size: 18px;
 `;
 
-const QuestionCardBodyLogo = styled.div`
-  text-align: center;
-  font-size: 14px;
-`;
-
-const QuestionCardContent = styled.h3`
-  background-color: #FFF;
-  border-radius: 5px;
-  min-height: 230px;
-  text-align: center;
-  padding: 16px;
-`;
 
 const QuestionCardFooter = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 `;

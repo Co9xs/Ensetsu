@@ -23,7 +23,7 @@ export const LoginDialog: React.FC<Props> = (props) => {
       <Dialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} handleClose={handleClose}>
         <LoginDialogBody>
           <EnsetsuIcon size="md" />
-          <LoginDialogText>エンセツはエンジニア面接向けの質問集です。実際にあった質問や自分の知見を共有してみましょう。</LoginDialogText>
+          <LoginDialogText>エンセツはエンジニア面接向けの質問集です。実際にあった質問や自分の回答を共有してみましょう。</LoginDialogText>
           <LoginDialogButton onClick={login}>
             <GoogleIcon />
             <LoginDialogLabel>Login with Google</LoginDialogLabel>
@@ -46,6 +46,7 @@ const LoginDialogBody = styled.div`
 
 const LoginDialogText = styled.p`
   font-size: 14px;
+  margin: 1rem auto;
 `;
 
 const LoginDialogButton = styled.button`
@@ -60,7 +61,10 @@ const LoginDialogButton = styled.button`
   font-weight: bold;
   font-size: 14px;
   line-height: 18px;
-  margin: 1rem auto;
+  margin-bottom:1rem;
+  margin-top:0;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
   align-items: center;
   cursor: pointer;
