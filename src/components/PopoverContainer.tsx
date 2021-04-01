@@ -17,7 +17,7 @@ export const PopoverContainer: React.FC<Props> = (props) => {
       </PopoverClickHandler>
       <PopoverItemList role="popover" aria-hidden={!popoverOpen}>
         {items.map(item => (
-          <PopoverItem>{item}</PopoverItem>
+          <PopoverItem key={item}>{item}</PopoverItem>
         )) }
       </PopoverItemList>
     </PopoverContainerBase>
