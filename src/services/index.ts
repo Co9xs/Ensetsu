@@ -31,3 +31,8 @@ export const getQuestion = async (id: string): Promise<void|firebase.firestore.D
       console.log(error)
     })
 }
+
+export const login = (): void => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithRedirect(provider);
+}

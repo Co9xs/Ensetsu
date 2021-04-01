@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
-import firebase from '../lib/firebase';
 import { Dialog } from '../components/Dialog'
 import { EnsetsuIcon, GoogleIcon } from '../components/icons'
+import { login } from '../services';
 
 type Props = {
   dialogOpen: boolean,
@@ -12,11 +12,6 @@ type Props = {
 
 export const LoginDialog: React.FC<Props> = (props) => {
   const { dialogOpen, setDialogOpen, handleClose } = props;
-
-  const login = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
-  }
 
   return (
     <LoginDialogBase>

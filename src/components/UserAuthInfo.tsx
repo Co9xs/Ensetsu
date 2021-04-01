@@ -18,8 +18,8 @@ export const UserAuthInfo: React.VFC<Props> = () => {
         <UserAuthInfoLoggedIn>
           <PopoverContainer
             items={[
-              'アイテム1',
-              'アイテム2'
+              'マイページ',
+              'ログアウト'
             ]}
           >
             <UserImage src={currentUser?.photoURL!} size="sm" />
