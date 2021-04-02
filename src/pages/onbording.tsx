@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react'
 import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
-import { AuthContext } from '../context/AuthProvider';
+import { AuthContext } from '../context/Auth';
 import { register } from '../services';
 import { PageBase } from '../style';
 

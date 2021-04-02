@@ -4,7 +4,7 @@ import { useDialog } from '../hooks';
 import { Button } from './Button';
 import { LoginDialog } from './LoginDialog';
 import { UserImage } from './UserImage';
-import { AuthContext } from '../context/AuthProvider';
+import { AuthContext } from '../context/Auth';
 import { PopoverContainer } from './PopoverContainer';
 import { logout } from '../services';
 

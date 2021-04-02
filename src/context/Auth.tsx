@@ -4,20 +4,26 @@ import { User } from '../types'
 import { useRouter } from 'next/router';
 
 type AuthContextProps = {
-  currentUser: User | null,
+  currentUser: User | null | undefined,
   isLoggedIn: boolean,
+  isAuthChecking: boolean
 }
 
 type Props = {
   children: any
 }
 
-const AuthContext = createContext<AuthContextProps>({ currentUser: null, isLoggedIn: false });
+const AuthContext = createContext<AuthContextProps>({
+  currentUser: undefined,
+  isLoggedIn: false,
+  isAuthChecking: true
+});
 
 const AuthProvider: React.VFC<Props> = (props) => {
   const {children} = props
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
   const isLoggedIn = currentUser ? true : false
+  const isAuthChecking = currentUser === undefined
   const router = useRouter()
   useEffect(() => {
 
@@ -45,19 +51,21 @@ const AuthProvider: React.VFC<Props> = (props) => {
         });
     };
 
-    const setCurrentUserAsync = async () => {
-      const user = await initFirebaseAuth()
-      setCurrentUser(user)
-      if (user !== null) {
-        onUserIdentify(user)
+    (async function () {
+      try {
+        const user = await initFirebaseAuth()
+        setCurrentUser(user)
+        if (user !== null) {
+          onUserIdentify(user)
+        }
+      } catch {
+        setCurrentUser(null);
       }
-    }
-
-    setCurrentUserAsync();
+    })();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, isLoggedIn }}>
+    <AuthContext.Provider value={{ currentUser, isLoggedIn, isAuthChecking }}>
       {children}
     </AuthContext.Provider>
   )

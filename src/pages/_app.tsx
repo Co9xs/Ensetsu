@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppProps } from 'next/app';
-import { AuthProvider } from '../context/AuthProvider';
+import { AuthProvider } from '../context/Auth';
 import { BasicLayout } from '../components/layouts/BasicLayout';
 import 'modern-css-reset/dist/reset.min.css'
 
