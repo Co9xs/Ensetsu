@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 type AuthContextProps = {
   currentUser: User | null | undefined,
   isLoggedIn: boolean,
-  isAuthChecking: boolean
+  isAuthChecking: boolean,
 }
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 const AuthContext = createContext<AuthContextProps>({
   currentUser: undefined,
   isLoggedIn: false,
-  isAuthChecking: true
+  isAuthChecking: true,
 });
 
 const AuthProvider: React.VFC<Props> = (props) => {
@@ -36,14 +36,15 @@ const AuthProvider: React.VFC<Props> = (props) => {
       })
     }
 
-    // userがfirestoreに存在しなければ'/onbording'に飛ばす関数
+    // userがfirestoreに存在しなければ'/onbording'に飛ばす
     const onUserIdentify = (user: firebase.User | null) => {
+      console.log('here?')
       firebase
         .firestore()
         .collection("users")
         .doc(user?.uid)
         .get().then(doc => {
-          if (doc.exists === false) {
+          if (!doc.exists) {
             router.push('/onbording')
           }
         }).catch(error => {
@@ -65,7 +66,13 @@ const AuthProvider: React.VFC<Props> = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, isLoggedIn, isAuthChecking }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        isLoggedIn,
+        isAuthChecking,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

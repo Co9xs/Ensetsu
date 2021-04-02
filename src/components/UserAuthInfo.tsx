@@ -11,40 +11,39 @@ import { logout } from '../services';
 type Props = {}
 
 export const UserAuthInfo: React.VFC<Props> = () => {
-  const { isLoggedIn, currentUser } = useContext(AuthContext);
+  const { isLoggedIn, isAuthChecking, currentUser } = useContext(AuthContext);
   const [dialogOpen, setDialogOpen, toggleDialog] = useDialog(false);
+  if (isAuthChecking) {
+    return <div>確認中...</div>
+  }
+  if (isLoggedIn) {
+    return (
+      <UserAuthInfoLoggedIn>
+        <PopoverContainer
+          items={[
+            {name: 'マイページ', onClick: () => console.log('mypage')},
+            {name: 'ログアウト', onClick: logout}
+          ]}
+        >
+          <UserImage src={currentUser?.photoURL!} size="sm" />
+        </PopoverContainer>
+        <UserAuthButton>
+          <Button label={"質問を投稿"}/>
+        </UserAuthButton>
+      </UserAuthInfoLoggedIn>
+    )
+  }
   return (
-    <UserAuthInfoBase>
-      { isLoggedIn ?
-        <UserAuthInfoLoggedIn>
-          <PopoverContainer
-            items={[
-              {name: 'マイページ', onClick: () => console.log('mypage')},
-              {name: 'ログアウト', onClick: logout}
-            ]}
-          >
-            <UserImage src={currentUser?.photoURL!} size="sm" />
-          </PopoverContainer>
-          <UserAuthButton>
-            <Button label={"質問を投稿"}/>
-          </UserAuthButton>
-        </UserAuthInfoLoggedIn>
-        :
-        <UserAuthInfoNotLoggedIn>
-          <Button label={"ログイン"} onClick={toggleDialog} />
-        </UserAuthInfoNotLoggedIn>
-      }
+    <UserAuthInfoNotLoggedIn>
+      <Button label={"ログイン"} onClick={toggleDialog} />
       <LoginDialog
-        dialogOpen={dialogOpen}
-        setDialogOpen={setDialogOpen}
-        handleClose={() => setDialogOpen(false)}
+      dialogOpen={dialogOpen}
+      setDialogOpen={setDialogOpen}
+      handleClose={() => setDialogOpen(false)}
       />
-    </UserAuthInfoBase>
+    </UserAuthInfoNotLoggedIn>
   )
 };
-
-const UserAuthInfoBase = styled.div`
-`;
 
 const UserAuthInfoLoggedIn = styled.div`
   display: flex;

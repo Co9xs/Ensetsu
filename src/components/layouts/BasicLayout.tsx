@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Header } from '../Header'
 import { HEADER_HEIGHT } from '../../utils'
+import { AuthContext } from '../../context/Auth'
 
 type Props = {
   children: React.ReactNode
 }
 
-export const BasicLayout: React.FC<Props> = (props) => {
+export const BasicLayout: React.VFC<Props> = (props) => {
   const { children } = props;
+  const { isAuthChecking } = useContext(AuthContext)
   return (
     <BasicLayoutBase>
       <FixedHeader>
         <Header />
       </FixedHeader>
-      <PageContent>
-        {children}
-      </PageContent>
+      {
+        isAuthChecking ?
+          <PageContent>
+            ログイン情報の確認中...
+          </PageContent>
+          :
+          <PageContent>
+            {children}
+          </PageContent>
+      }
     </BasicLayoutBase>
   )
 }
