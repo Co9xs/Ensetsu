@@ -11,3 +11,5 @@ export type LinkItem = {
   label: string,
   href: string
 }
+
+export type Layout = 'hasHeader' | 'noHeader'

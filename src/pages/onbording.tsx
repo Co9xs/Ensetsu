@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React, {useContext, useState} from 'react'
 import styled from 'styled-components';
@@ -6,8 +7,13 @@ import { TextInput } from '../components/TextInput';
 import { AuthContext } from '../context/Auth';
 import { register } from '../services';
 import { PageBase } from '../style';
+import { Layout } from '../types';
 
-const OnBordingPage = () => {
+type Props = {
+  layout: Layout
+}
+
+const OnBordingPage = ({ layout }: Props) => {
   const { currentUser } = useContext(AuthContext)
   const router = useRouter();
   const initialDisplayName = currentUser ? currentUser.displayName! : ''
@@ -40,6 +46,14 @@ const OnBordingPage = () => {
       </OnbordingForm>
     </PageBase>
   )
+}
+
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+  return {
+    props: {
+      layout: 'noHeader'
+    }
+  }
 }
 
 const OnbordingTitle = styled.h2`
