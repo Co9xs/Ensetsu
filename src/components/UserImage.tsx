@@ -11,7 +11,7 @@ export const UserImage: React.FC<Props> = (props) => {
   const { src, size } = props;
   return (
     <UserImageBase>
-      <Image
+      <img
         src={src}
         alt="ユーザーアイコン"
         width={size === 'sm' ? 30 : 40 }

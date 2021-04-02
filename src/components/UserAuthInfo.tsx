@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components';
 import { useDialog } from '../hooks';
 import { Button } from './Button';
@@ -6,6 +6,7 @@ import { LoginDialog } from './LoginDialog';
 import { UserImage } from './UserImage';
 import { AuthContext } from '../context/AuthProvider';
 import { PopoverContainer } from './PopoverContainer';
+import { logout } from '../services';
 
 type Props = {}
 
@@ -18,8 +19,8 @@ export const UserAuthInfo: React.VFC<Props> = () => {
         <UserAuthInfoLoggedIn>
           <PopoverContainer
             items={[
-              'マイページ',
-              'ログアウト'
+              {name: 'マイページ', onClick: () => console.log('mypage')},
+              {name: 'ログアウト', onClick: logout}
             ]}
           >
             <UserImage src={currentUser?.photoURL!} size="sm" />

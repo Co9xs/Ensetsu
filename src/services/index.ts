@@ -1,6 +1,7 @@
 import { db } from '../lib/firebase';
 import firebase from 'firebase'
-import { Question } from '../types';
+import { Question, User } from '../types';
+import { useRouter } from 'next/router';
 
 export const getQuestions = async (): Promise<void|Question[]> => {
   const docs: Question[] = []
@@ -32,7 +33,38 @@ export const getQuestion = async (id: string): Promise<void|firebase.firestore.D
     })
 }
 
-export const login = (): void => {
+export const login = (): Promise<void> => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithRedirect(provider);
+  return firebase.auth().signInWithRedirect(provider).then((result) => {
+    console.log(result)
+  }).catch((error) => {
+    console.error(error)
+  })
+}
+
+export const logout = (): Promise<void> => {
+  return firebase.auth().signOut()
+}
+
+export const register = (user: any): void => {
+  firebase
+    .firestore()
+    .collection("users")
+    .doc(user?.uid)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.error("User: " + user?.uid + " already exists");
+        throw new Error("User: " + user?.uid + " already exists");
+      } else {
+        doc.ref.set({
+          uid: user?.uid,
+          name: user?.name,
+          photoURL: user?.photoURL
+        });
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
