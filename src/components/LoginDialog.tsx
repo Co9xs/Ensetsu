@@ -1,5 +1,4 @@
 import firebase from 'firebase'
-import { useRouter } from 'next/router'
 import React, { Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 import { Dialog } from '../components/Dialog'

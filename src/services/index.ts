@@ -1,7 +1,6 @@
 import { db } from '../lib/firebase';
 import firebase from 'firebase'
-import { Question, User } from '../types';
-import { useRouter } from 'next/router';
+import { Question } from '../types';
 
 export const getQuestions = async (): Promise<void|Question[]> => {
   const docs: Question[] = []
