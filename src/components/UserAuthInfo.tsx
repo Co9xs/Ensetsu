@@ -1,32 +1,32 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import { useDialog } from '../hooks';
 import { Button } from './Button';
 import { LoginDialog } from './LoginDialog';
 import { UserImage } from './UserImage';
 import { AuthContext } from '../context/Auth';
-import { PopoverContainer } from './PopoverContainer';
-import { logout } from '../services';
+import { UserPopover } from './UserPopover';
+import { usePopover } from '../hooks/usePopover';
 
 type Props = {}
 
 export const UserAuthInfo: React.VFC<Props> = () => {
   const { isLoggedIn, isAuthChecking, currentUser } = useContext(AuthContext);
   const [dialogOpen, setDialogOpen, toggleDialog] = useDialog(false);
+  const [popoverOpen, setPopoverOpen, togglePopover] = usePopover(false);
   if (isAuthChecking) {
     return <div>確認中...</div>
   }
   if (isLoggedIn) {
     return (
       <UserAuthInfoLoggedIn>
-        <PopoverContainer
-          items={[
-            {name: 'マイページ', onClick: () => console.log('mypage')},
-            {name: 'ログアウト', onClick: logout}
-          ]}
+        <UserPopover
+          popoverOpen={popoverOpen}
+          setPopoverOpen={setPopoverOpen}
+          togglePopover={togglePopover}
         >
           <UserImage src={currentUser?.photoURL!} size="sm" />
-        </PopoverContainer>
+        </UserPopover>
         <UserAuthButton>
           <Button label={"質問を投稿"}/>
         </UserAuthButton>

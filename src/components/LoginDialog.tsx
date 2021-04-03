@@ -26,7 +26,7 @@ export const LoginDialog: React.FC<Props> = (props) => {
           <LoginDialogText>エンセツはエンジニア面接向けの質問集です。実際にあった質問や自分の回答を共有してみましょう。</LoginDialogText>
           <LoginDialogButton onClick={login}>
             <GoogleIcon />
-            <LoginDialogLabel>Login with Google</LoginDialogLabel>
+            <LoginDialogLabel>Googleでログインする</LoginDialogLabel>
           </LoginDialogButton>
           <LoginDialogLink href="/about-ensetsu">エンセツについて</LoginDialogLink>
           <LoginDialogLink href="/about-ensetsu">利用規約</LoginDialogLink>
