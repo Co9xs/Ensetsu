@@ -5,12 +5,13 @@ type Props = {
   label: string,
   icon?: JSX.Element,
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+  disabled?: boolean
 }
 
 export const Button: React.VFC<Props> = (props) => {
-  const { label, icon, onClick } = props;
+  const { label, icon, onClick, disabled } = props;
   return (
-    <ButtonBase onClick={onClick}>
+    <ButtonBase onClick={onClick} disabled={disabled}>
       { icon ? <ButtonIcon>{icon}</ButtonIcon> : null}
       <ButtonText>{label}</ButtonText>
     </ButtonBase>
@@ -29,6 +30,9 @@ const ButtonBase = styled.button`
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
+  &:disabled {
+    opacity: 0.6;
+  }
 `;
 
 const ButtonIcon = styled.span`

@@ -67,11 +67,6 @@ export const UserPopover: React.VFC<Props> = (props) => {
           <PopoverItem>
             <a onClick={logout}>ログアウト</a>
           </PopoverItem>
-          <PopoverItem>
-            <Link href={`/users/${currentUser?.uid}`}>
-              <a>退会する</a>
-            </Link>
-          </PopoverItem>
         </PopoverItemList>
     </PopoverContainerBase>
   )

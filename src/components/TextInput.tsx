@@ -3,12 +3,13 @@ import styled from 'styled-components';
 
 type Props = {
   value: string,
-  onChange: (event: any) => void,
+  onChange?: React.ChangeEventHandler<HTMLInputElement>,
+  onBlur?: React.FocusEventHandler<HTMLInputElement>,
   placeholder?: string
 }
 
 export const TextInput: React.VFC<Props> = (props) => {
-  const { value, onChange, placeholder } = props;
+  const { value, onChange, onBlur, placeholder } = props;
   return (
     <InputBase>
       <Input
@@ -16,6 +17,7 @@ export const TextInput: React.VFC<Props> = (props) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </InputBase>
   )

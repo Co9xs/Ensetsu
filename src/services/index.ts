@@ -58,7 +58,8 @@ export const register = (user: any): void => {
       } else {
         doc.ref.set({
           uid: user?.uid,
-          name: user?.name,
+          displayName: user?.displayName,
+          userName: user?.userName,
           photoURL: user?.photoURL
         });
       }
@@ -66,4 +67,20 @@ export const register = (user: any): void => {
     .catch(error => {
       console.error(error);
     });
+}
+
+export const checkUserNameExistance = (userName: string) => {
+  return firebase
+    .firestore()
+    .collection('userNames')
+    .doc(userName)
+    .get().then(doc => {
+      if (doc.exists) {
+        throw new Error(`ユーザー名 ${userName} は既に使用されています`)
+      } else {
+        doc.ref.set({
+          userName: userName
+        })
+      }
+    })
 }

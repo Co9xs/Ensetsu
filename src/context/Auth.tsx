@@ -43,7 +43,7 @@ const AuthProvider: React.VFC<Props> = (props) => {
         setCurrentUser(user)
         const userDoc = await fetchUserDoc(user)
         if (currentUser && !userDoc.exists) { //ログイン中かつ未登録の場合
-          router.push('/onbording')
+          router.push('/onboarding')
         }
       } catch {
         setCurrentUser(null);
