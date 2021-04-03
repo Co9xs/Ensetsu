@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import { Question } from '../types'
 import { StockIcon } from './icons';
+import { TooltipContainer } from './TooltipContainer';
 
 type Props = {
   question: Question
@@ -20,9 +21,11 @@ export const QuestionCard: React.VFC<Props> = (props) => {
           { question.body }
       </QuestionCardBody>
       <QuestionCardFooter>
-        <QuestionCardIconWrapper>
-          <StockIcon/>
-        </QuestionCardIconWrapper>
+          <QuestionCardIconWrapper>
+            <TooltipContainer text={'ストック'}>
+              <StockIcon/>
+            </TooltipContainer>
+          </QuestionCardIconWrapper>
       </QuestionCardFooter>
     </QuestionCardBase>
   )
