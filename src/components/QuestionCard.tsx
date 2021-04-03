@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import styled from 'styled-components';
 import { Question } from '../types'
@@ -17,9 +18,11 @@ export const QuestionCard: React.VFC<Props> = (props) => {
           2021年03月31日に投稿
         </QuestionCardDate>
       </QuestionCardHeader>
-      <QuestionCardBody>
-          { question.body }
-      </QuestionCardBody>
+      <Link href={`/questions/${question.id}`}>
+        <QuestionCardBody>
+            { question.body }
+        </QuestionCardBody>
+      </Link>
       <QuestionCardFooter>
           <QuestionCardIconWrapper>
             <TooltipContainer text={'ストック'}>
@@ -51,9 +54,13 @@ const QuestionCardIconWrapper = styled.span`
   border-radius: 50%;
 `;
 
-const QuestionCardBody = styled.div`
+const QuestionCardBody = styled.a`
   font-weight: bold;
   font-size: 18px;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 

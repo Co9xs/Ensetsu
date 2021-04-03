@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components';
 import { QuestionCard } from './QuestionCard';
 import { Question } from '../types'
-import Link from 'next/link';
 
 type Props = {
   questions: Question[]
@@ -14,11 +13,9 @@ export const QuestionCardList: React.VFC<Props> = (props) => {
     <QuestionCardListBase>
       <QuestionCardListInner>
         {questions.map(question => (
-          <Link href={`/questions/${question.id}`} key={question.id}>
-            <QuestionCardListItem>
-              <QuestionCard question={question}/>
-            </QuestionCardListItem>
-          </Link>
+          <QuestionCardListItem key={question.id}>
+            <QuestionCard question={question}/>
+          </QuestionCardListItem>
         ))}
       </QuestionCardListInner>
     </QuestionCardListBase>
