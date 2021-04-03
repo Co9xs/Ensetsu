@@ -28,7 +28,7 @@ const QuestionCardListBase = styled.div`
 const QuestionCardListInner = styled.div`
 `;
 
-const QuestionCardListItem = styled.a`
+const QuestionCardListItem = styled.div`
   cursor: pointer;
   margin: 16px 0px;
 `;

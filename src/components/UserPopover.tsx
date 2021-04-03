@@ -1,4 +1,6 @@
+import firebase from 'firebase';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components';
 import { AuthContext } from '../context/Auth';
@@ -14,6 +16,13 @@ export const UserPopover: React.VFC<Props> = (props) => {
   const { popoverOpen, setPopoverOpen, children, togglePopover } = props;
   const popoverRef = useRef<HTMLUListElement>(null);
   const { currentUser } = useContext(AuthContext);
+  const router = useRouter()
+
+  const logout = async (): Promise<void> => {
+    await firebase.auth().signOut()
+    router.push('/')
+    router.reload()
+  }
 
   const outsideClickHandler = (e: MouseEvent) => {
     if (popoverRef.current?.contains(e.target as Node)) return
@@ -56,9 +65,7 @@ export const UserPopover: React.VFC<Props> = (props) => {
             </Link>
           </PopoverItem>
           <PopoverItem>
-            <Link href={`/users/${currentUser?.uid}`}>
-              <a>ログアウト</a>
-            </Link>
+            <a onClick={logout}>ログアウト</a>
           </PopoverItem>
           <PopoverItem>
             <Link href={`/users/${currentUser?.uid}`}>
