@@ -31,19 +31,24 @@ const OnBordingPage = ({ layout }: Props) => {
   }
   return (
     <PageBase>
-      <OnbordingForm onSubmit={handleSubmit}>
-        <OnbordingTitle>Welcome to Ensetsu</OnbordingTitle>
+      <OnbordingPage>
+        <OnbordingTitle>エンセツにようこそ！</OnbordingTitle>
         <OnbordingUserImage
           src={currentUser?.photoURL!}
           alt={'ユーザーアイコン'}
         />
-        <OnbordingMessage>アプリ内で表示する名前を決めてください</OnbordingMessage>
-        <TextInput
-          value={displayName}
-          onChange={handleChange}
-        />
-        <Button label={'登録'}/>
-      </OnbordingForm>
+        <OnbordingForm onSubmit={handleSubmit}>
+          <OnbordingMessage>アプリでの表示名を決めましょう</OnbordingMessage>
+          <TextInput
+            value={displayName}
+            onChange={handleChange}
+            placeholder={'表示名'}
+          />
+          <OnBordingButton>
+            <Button label={'登録する'}/>
+          </OnBordingButton>
+        </OnbordingForm>
+      </OnbordingPage>
     </PageBase>
   )
 }
@@ -56,20 +61,31 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
   }
 }
 
-const OnbordingTitle = styled.h2`
- font-size: 24px;
+const OnbordingPage = styled.div`
+ max-width:300px;
+ margin: auto;
 `
-
+const OnbordingTitle = styled.h2`
+ font-size: 28px;
+ text-align:center;
+ margin-top: 32px;
+`
 const OnbordingUserImage = styled.img`
  width: 70px;
  height: 70px;
  border-radius: 50%;
+ margin: 16px auto 32px;
 `
-
 const OnbordingMessage = styled.p`
  font-size: 16px;
+ font-weight: bold;
 `
 
-const OnbordingForm = styled.form`
+const OnBordingButton = styled.div`
+ display: flex;
+ justify-content: center;
+ margin: 18px;
 `
+const OnbordingForm = styled.form``
+
 export default OnBordingPage

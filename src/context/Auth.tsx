@@ -26,8 +26,7 @@ const AuthProvider: React.VFC<Props> = (props) => {
   const isAuthChecking = currentUser === undefined
   const router = useRouter()
   useEffect(() => {
-
-    const initFirebaseAuth = async () => {
+    const initFirebaseAuth = async (): Promise<firebase.User | null> => {
       return new Promise<User | null>((resolve) => {
         const unsibscribe = firebase.auth().onAuthStateChanged((user) => {
           resolve(user);
@@ -35,35 +34,22 @@ const AuthProvider: React.VFC<Props> = (props) => {
         })
       })
     }
-
-    // userがfirestoreに存在しなければ'/onbording'に飛ばす
-    const onUserIdentify = (user: firebase.User | null) => {
-      console.log('here?')
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(user?.uid)
-        .get().then(doc => {
-          if (!doc.exists) {
-            router.push('/onbording')
-          }
-        }).catch(error => {
-          console.error(error);
-        });
-    };
-
+    const fetchUserDoc = (user: firebase.User | null): Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>> => {
+      return firebase.firestore().collection('users').doc(user?.uid).get()
+    }
     (async function () {
       try {
         const user = await initFirebaseAuth()
         setCurrentUser(user)
-        if (user !== null) {
-          onUserIdentify(user)
+        const userDoc = await fetchUserDoc(user)
+        if (currentUser && !userDoc.exists) { //ログイン中かつ未登録の場合
+          router.push('/onbording')
         }
       } catch {
         setCurrentUser(null);
       }
     })();
-  }, []);
+  }, [currentUser]);
 
   return (
     <AuthContext.Provider

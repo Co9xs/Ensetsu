@@ -25,4 +25,18 @@ const InputBase = styled.div`
 `;
 
 const Input = styled.input`
-`;
+  width: 100%;
+  padding: 4px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #efefef;
+  trasition: color .3s;
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid #3EA8FF;
+    trasition: color .3s;
+  }
+`
+
+
+
