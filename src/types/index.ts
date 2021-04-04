@@ -1,5 +1,14 @@
 import firebase from 'firebase/app';
-export type User = firebase.User
+export type FirebaseUser = firebase.User
+
+export type DocumentData = firebase.firestore.DocumentData
+
+export type User = {
+  uid: string | undefined,
+  displayName: string | null,
+  userName: string,
+  photoURL: string | null | undefined,
+}
 
 export type Question = {
   body: string,

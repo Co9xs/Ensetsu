@@ -1,13 +1,13 @@
 import { db } from '../lib/firebase';
 import firebase from 'firebase'
-import { Question } from '../types';
+import { Question, FirebaseUser, User, DocumentData } from '../types';
 
-export const getQuestions = async (): Promise<void|Question[]> => {
-  const docs: Question[] = []
+export const getQuestions = async (): Promise<Question[]> => {
+  const questions: Question[] = []
   await db.collection('questions').get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        docs.push({
+        questions.push({
           id: doc.id,
           ...doc.data()
         } as Question)
@@ -15,17 +15,16 @@ export const getQuestions = async (): Promise<void|Question[]> => {
     }).catch(error => {
       console.error(error)
     })
-  return docs;
+  return questions;
 }
 
-export const getQuestion = async (id: string): Promise<void|firebase.firestore.DocumentData|undefined> => {
-  const docRef = db.collection("questions").doc(id);
-  return await docRef.get()
+export const getQuestion = async (id: string): Promise<DocumentData | void> => {
+  return db.collection("questions")
+    .doc(id)
+    .get()
     .then(doc => {
       if (doc.exists) {
         return doc.data()
-      } else {
-        return undefined
       }
     }).catch(error => {
       console.log(error)
@@ -34,21 +33,15 @@ export const getQuestion = async (id: string): Promise<void|firebase.firestore.D
 
 export const login = (): Promise<void> => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  return firebase.auth().signInWithRedirect(provider).then((result) => {
-    console.log(result)
-  }).catch((error) => {
-    console.error(error)
-  })
+  return firebase.auth().signInWithRedirect(provider)
 }
 
 export const logout = (): Promise<void> => {
   return firebase.auth().signOut()
 }
 
-export const register = (user: any): void => {
-  firebase
-    .firestore()
-    .collection("users")
+export const register = (user: User): void => {
+  db.collection("users")
     .doc(user?.uid)
     .get()
     .then(doc => {
@@ -70,17 +63,22 @@ export const register = (user: any): void => {
 }
 
 export const checkUserNameExistance = (userName: string) => {
-  return firebase
-    .firestore()
-    .collection('userNames')
+  return db.collection('userNames')
     .doc(userName)
     .get().then(doc => {
       if (doc.exists) {
         throw new Error(`ユーザー名 ${userName} は既に使用されています`)
       } else {
         doc.ref.set({
-          userName: userName
+          userName
         })
       }
     })
+}
+
+// firebaseUser型のcurrentUserからfirestoreに保存されたUser型を取り出す関数
+export const getUserDocument = (user: FirebaseUser | null | undefined): Promise<
+  firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+> => {
+  return db.collection('users').doc(user?.uid).get()
 }

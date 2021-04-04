@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import React, {useContext, useEffect, useState} from 'react'
@@ -6,9 +5,9 @@ import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
 import { AuthContext } from '../context/Auth';
-import { checkUserNameExistance, register } from '../services';
+import { checkUserNameExistance, getUserDocument, register } from '../services';
 import { PageBase } from '../style';
-import { Layout } from '../types';
+import { Layout, User } from '../types';
 
 type Props = {
   layout: Layout
@@ -25,11 +24,8 @@ const OnBordingPage = () => {
 
   //既に登録済みのユーザーはリダイレクト
   useEffect(() => {
-    const fetchUserDoc = (user: firebase.User | null | undefined): Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>> => {
-      return firebase.firestore().collection('users').doc(user?.uid).get()
-    }
     (async function () {
-      const userDoc = await fetchUserDoc(currentUser)
+      const userDoc = await getUserDocument(currentUser)
       if (userDoc.exists) { //ログイン中かつ登録済の場合
         router.push('/')
       }
@@ -56,7 +52,7 @@ const OnBordingPage = () => {
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const user = {
+    const user: User = {
       uid: currentUser?.uid,
       displayName: displayName,
       userName: userName,
@@ -127,7 +123,7 @@ const OnBordingPage = () => {
           </TextInputRow>
           <ErrorMessage>{userNameError}</ErrorMessage>
           <OnBordingButton>
-            <Button label={'登録する'} disabled={!userNameError}/>
+            <Button label={'登録する'} disabled={!!userNameError}/>
           </OnBordingButton>
         </OnbordingForm>
       </OnbordingPage>

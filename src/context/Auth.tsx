@@ -1,16 +1,17 @@
 import firebase from '../lib/firebase';
 import React, { createContext, useEffect, useState } from 'react';
-import { User } from '../types'
+import { FirebaseUser } from '../types'
 import { useRouter } from 'next/router';
+import { getUserDocument } from '../services';
 
 type AuthContextProps = {
-  currentUser: User | null | undefined,
+  currentUser: FirebaseUser | null | undefined,
   isLoggedIn: boolean,
   isAuthChecking: boolean,
 }
 
 type Props = {
-  children: any
+  children: React.ReactNode
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -21,27 +22,25 @@ const AuthContext = createContext<AuthContextProps>({
 
 const AuthProvider: React.VFC<Props> = (props) => {
   const {children} = props
-  const [currentUser, setCurrentUser] = useState<any | null | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<FirebaseUser | null | undefined>(undefined);
   const isLoggedIn = currentUser ? true : false
   const isAuthChecking = currentUser === undefined
   const router = useRouter()
   useEffect(() => {
-    const initFirebaseAuth = async (): Promise<firebase.User | null> => {
-      return new Promise<User | null>((resolve) => {
+    const initFirebaseAuth = (): Promise<FirebaseUser | null> => {
+      return new Promise<FirebaseUser | null>((resolve) => {
         const unsibscribe = firebase.auth().onAuthStateChanged((user) => {
           resolve(user);
-          unsibscribe()
+          unsibscribe();
         })
       })
     }
-    const fetchUserDoc = (user: firebase.User | null): Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>> => {
-      return firebase.firestore().collection('users').doc(user?.uid).get()
-    }
+
     (async function () {
       try {
-        const user = await initFirebaseAuth()
+        const user = await initFirebaseAuth();
         setCurrentUser(user)
-        const userDoc = await fetchUserDoc(user)
+        const userDoc = await getUserDocument(user);
         if (currentUser && !userDoc.exists) { //ログイン中かつ未登録の場合
           router.push('/onboarding')
         }

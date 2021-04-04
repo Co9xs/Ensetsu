@@ -20,7 +20,7 @@ export const UserPopover: React.VFC<Props> = (props) => {
 
   const logout = async (): Promise<void> => {
     await firebase.auth().signOut()
-    router.push('/')
+    await router.push('/')
     router.reload()
   }
 
