@@ -21,7 +21,7 @@ const OnBordingPage = () => {
   const [userName, setUserName] = useState<string>('')
   const [userNameError, setUserNameError] = useState<string>('')
   const [displayNameError, setDisplayNameError] = useState<string>('')
-  const handleDisplayNameChange = (event: any): void => {
+  const handleDisplayNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     displayNameValidation(event.target.value);
     setDisplayName(event.target.value);
@@ -39,7 +39,7 @@ const OnBordingPage = () => {
     event.preventDefault();
     userNameValidation(event.target.value);
   }
-  const handleSubmit = (event: any): void => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const user = {
       uid: currentUser?.uid,
