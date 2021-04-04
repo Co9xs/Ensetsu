@@ -15,9 +15,8 @@ type Props = {
 export const UserPopover: React.VFC<Props> = (props) => {
   const { popoverOpen, setPopoverOpen, children, togglePopover } = props;
   const popoverRef = useRef<HTMLUListElement>(null);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, storedUser } = useContext(AuthContext);
   const router = useRouter()
-
   const logout = async (): Promise<void> => {
     await firebase.auth().signOut()
     await router.push('/')
@@ -46,6 +45,7 @@ export const UserPopover: React.VFC<Props> = (props) => {
       removeOutsideClickHandler();
     };
   }, [popoverOpen]);
+
   
   return (
     <PopoverContainerBase>
@@ -55,12 +55,12 @@ export const UserPopover: React.VFC<Props> = (props) => {
         </PopoverClickHandler>
         <PopoverItemList role="popover" data-popover-active={popoverOpen} ref={popoverRef}>
           <PopoverItem>
-            <Link href={`/users/${currentUser?.uid}`}>
+            <Link href={`/users/${storedUser?.userName}`}>
               <a>マイページ</a>
             </Link>
           </PopoverItem>
           <PopoverItem>
-            <Link href={`/users/${currentUser?.uid}/stocks`}>
+            <Link href={`/users/${storedUser?.userName}/stocks`}>
               <a>ストックした記事</a>
             </Link>
           </PopoverItem>

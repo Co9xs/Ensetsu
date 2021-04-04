@@ -78,7 +78,7 @@ export const checkUserNameExistance = (userName: string) => {
 
 // firebaseUser型のcurrentUserからfirestoreに保存されたUser型を取り出す関数
 export const getUserDocument = (user: FirebaseUser | null | undefined): Promise<
-  firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+  firebase.firestore.DocumentSnapshot<DocumentData>
 > => {
   return db.collection('users').doc(user?.uid).get()
 }
