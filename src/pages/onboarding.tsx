@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
 import { AuthContext } from '../context/Auth';
+import { displayNameValidation, userNameValidation } from '../lib/validation';
 import { checkUserNameExistance, getUserDocument, register } from '../services';
 import { PageBase } from '../style';
 import { Layout, User } from '../types';
@@ -34,22 +35,27 @@ const OnBordingPage = () => {
   
   const handleDisplayNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    displayNameValidation(event.target.value);
+    const displayNameError = displayNameValidation(event.target.value);
+    setDisplayNameError(displayNameError)
     setDisplayName(event.target.value);
   }
   const handleDisplayNameBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    displayNameValidation(event.target.value);
+    const displayNameError = displayNameValidation(event.target.value);
+    setDisplayNameError(displayNameError)
   }
   const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    userNameValidation(event.target.value);
+    const userNameError = userNameValidation(event.target.value);
+    setUserNameError(userNameError)
     setUserName(event.target.value);
   }
   const handleUserNameBlur = (event: React.FocusEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    userNameValidation(event.target.value);
+    const userNameError = userNameValidation(event.target.value);
+    setUserNameError(userNameError)
   }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const user: User = {
@@ -68,30 +74,6 @@ const OnBordingPage = () => {
     }).catch((error) => {
       alert(error.message)
     })
-  }
-
-  const userNameValidation = (value: string): void => {
-    setUserNameError('')
-    if (!value) {
-      setUserNameError('ユーザー名は必須です')
-    }
-    if (value.length > 8) {
-      setUserNameError('ユーザー名は8文字以内にしてください')
-    }
-    const regex = /^[_0-9a-z]*$/
-    if (!regex.test(value)) {
-      setUserNameError('ユーザー名には半角英小文字, 数字, _(アンダースコア)のみ使用できます')
-    }
-  }
-
-  const displayNameValidation = (value: string): void => {
-    setDisplayNameError('')
-    if (!value) {
-      setDisplayNameError('表示名は必須です')
-    }
-    if (value.length > 8) {
-      setDisplayNameError('表示名は8文字以内にしてください')
-    }
   }
 
   return (
