@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextProps>({
 
 const AuthProvider: React.VFC<Props> = (props) => {
   const {children} = props
-  const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<any | null | undefined>(undefined);
   const isLoggedIn = currentUser ? true : false
   const isAuthChecking = currentUser === undefined
   const router = useRouter()

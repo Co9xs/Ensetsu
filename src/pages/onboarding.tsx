@@ -1,6 +1,7 @@
+import firebase from 'firebase';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import React, {useContext, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import styled from 'styled-components';
 import { Button } from '../components/Button';
 import { TextInput } from '../components/TextInput';
@@ -21,6 +22,20 @@ const OnBordingPage = () => {
   const [userName, setUserName] = useState<string>('')
   const [userNameError, setUserNameError] = useState<string>('')
   const [displayNameError, setDisplayNameError] = useState<string>('')
+
+  //既に登録済みのユーザーはリダイレクト
+  useEffect(() => {
+    const fetchUserDoc = (user: firebase.User | null | undefined): Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>> => {
+      return firebase.firestore().collection('users').doc(user?.uid).get()
+    }
+    (async function () {
+      const userDoc = await fetchUserDoc(currentUser)
+      if (userDoc.exists) { //ログイン中かつ登録済の場合
+        router.push('/')
+      }
+    })();
+  }, [])
+  
   const handleDisplayNameChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     displayNameValidation(event.target.value);
@@ -48,7 +63,11 @@ const OnBordingPage = () => {
       photoURL: currentUser?.photoURL,
     }
     checkUserNameExistance(userName).then(() => {
-      register(user)
+      try {
+        register(user)
+      } catch (error) {
+        alert(error.message)
+      }
       router.push('/')
     }).catch((error) => {
       alert(error.message)
@@ -108,7 +127,7 @@ const OnBordingPage = () => {
           </TextInputRow>
           <ErrorMessage>{userNameError}</ErrorMessage>
           <OnBordingButton>
-            <Button label={'登録する'} disabled={userNameError === '' ? false : true}/>
+            <Button label={'登録する'} disabled={!userNameError}/>
           </OnBordingButton>
         </OnbordingForm>
       </OnbordingPage>
