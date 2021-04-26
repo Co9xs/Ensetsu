@@ -7,11 +7,10 @@ import { EnsetsuIcon, GoogleIcon } from '../components/icons'
 type Props = {
   dialogOpen: boolean,
   setDialogOpen: Dispatch<SetStateAction<boolean>>,
-  handleClose: () => void
 }
 
 export const LoginDialog: React.FC<Props> = (props) => {
-  const { dialogOpen, setDialogOpen, handleClose } = props;
+  const { dialogOpen, setDialogOpen } = props;
   
   const login = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -20,7 +19,7 @@ export const LoginDialog: React.FC<Props> = (props) => {
 
   return (
     <LoginDialogBase>
-      <Dialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} handleClose={handleClose}>
+      <Dialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen}>
         <LoginDialogBody>
           <EnsetsuIcon size="md" />
           <LoginDialogText>エンセツはエンジニア面接向けの質問集です。実際にあった質問や自分の回答を共有してみましょう。</LoginDialogText>

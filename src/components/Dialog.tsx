@@ -6,11 +6,10 @@ type Props = {
   dialogOpen: boolean,
   setDialogOpen: Dispatch<SetStateAction<boolean>>,
   children: React.ReactNode,
-  handleClose: () => void
 }
 
 export const Dialog: React.VFC<Props> = (props) => {
-  const { dialogOpen, setDialogOpen, children, handleClose } = props;
+  const { dialogOpen, setDialogOpen, children } = props;
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const outsideClickHandler = useCallback((e: MouseEvent) => {
@@ -20,20 +19,20 @@ export const Dialog: React.VFC<Props> = (props) => {
   }, [dialogRef])
 
   const closeButtonClickHandler = useCallback(() => {
-    handleClose();
+    setDialogOpen(false)
     removeOutsideClickHandler();
   }, [])
 
   const addOutsideClickHandler = useCallback(() => {
-    document.addEventListener('click', outsideClickHandler)
+    document.body.addEventListener('click', outsideClickHandler)
   }, [])
 
   const removeOutsideClickHandler = useCallback(() => {
-    document.removeEventListener('click', outsideClickHandler)
+    document.body.removeEventListener('click', outsideClickHandler)
   }, [])
 
   useEffect(() => {
-    if (dialogOpen) {      
+    if (dialogOpen) {
       addOutsideClickHandler();
     }
     return () => {
@@ -92,9 +91,9 @@ const DialogContent = styled.div`
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 	transition: all 0.5s;
-	opacity: 0;
+  display: none;
   &[data-dialog-active="true"] {
-    opacity: 1;
+    display:block;
   }
 `;
 

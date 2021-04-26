@@ -12,7 +12,7 @@ type Props = {}
 
 export const UserAuthInfo: React.VFC<Props> = () => {
   const { isLoggedIn, isAuthChecking, currentUser } = useContext(AuthContext);
-  const [dialogOpen, setDialogOpen, toggleDialog] = useDialog(false);
+  const [dialogOpen, setDialogOpen] = useDialog(false);
   const [popoverOpen, setPopoverOpen, togglePopover] = usePopover(false);
   if (isAuthChecking) {
     return <div>確認中...</div>
@@ -35,11 +35,13 @@ export const UserAuthInfo: React.VFC<Props> = () => {
   }
   return (
     <UserAuthInfoNotLoggedIn>
-      <Button label={"ログイン"} onClick={toggleDialog} />
+      <Button label={"ログイン"} onClick={() => {
+        console.log('open')
+        setDialogOpen(true)
+      }} />
       <LoginDialog
-      dialogOpen={dialogOpen}
-      setDialogOpen={setDialogOpen}
-      handleClose={() => setDialogOpen(false)}
+        dialogOpen={dialogOpen}
+        setDialogOpen={setDialogOpen}
       />
     </UserAuthInfoNotLoggedIn>
   )
