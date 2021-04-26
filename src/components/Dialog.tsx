@@ -9,9 +9,9 @@ type Props = {
   handleClose: () => void
 }
 
-export const Dialog: React.FC<Props> = (props) => {
+export const Dialog: React.VFC<Props> = (props) => {
   const { dialogOpen, setDialogOpen, children, handleClose } = props;
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const outsideClickHandler = (e: MouseEvent) => {
     if (dialogRef.current?.contains(e.target as Node)) return
@@ -44,7 +44,7 @@ export const Dialog: React.FC<Props> = (props) => {
   return (
     <DialogBase>
       <DialogBackground data-dialog-active={dialogOpen}>
-        <DialogContent data-dialog-active={dialogOpen} ref={dialogRef}>
+        <DialogContent data-dialog-active={dialogOpen} ref={dialogRef} aria-modal>
           <DialogHeader>
             <DialogCloseIcon onClick={closeButtonClickHandler}>
               <CrossIcon/>
