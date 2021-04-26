@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components';
 import { CrossIcon } from './icons';
 
@@ -13,27 +13,27 @@ export const Dialog: React.VFC<Props> = (props) => {
   const { dialogOpen, setDialogOpen, children, handleClose } = props;
   const dialogRef = useRef<HTMLDivElement | null>(null);
 
-  const outsideClickHandler = (e: MouseEvent) => {
+  const outsideClickHandler = useCallback((e: MouseEvent) => {
     if (dialogRef.current?.contains(e.target as Node)) return
     setDialogOpen(false)
     removeOutsideClickHandler()
-  }
+  }, [dialogRef])
 
-  const closeButtonClickHandler = () => {
+  const closeButtonClickHandler = useCallback(() => {
     handleClose();
     removeOutsideClickHandler();
-  }
+  }, [])
 
-  const addOutsideClickHandler = () => {
+  const addOutsideClickHandler = useCallback(() => {
     document.addEventListener('click', outsideClickHandler)
-  }
+  }, [])
 
-  const removeOutsideClickHandler = () => {
+  const removeOutsideClickHandler = useCallback(() => {
     document.removeEventListener('click', outsideClickHandler)
-  }
+  }, [])
 
   useEffect(() => {
-    if (dialogOpen === true) {      
+    if (dialogOpen) {      
       addOutsideClickHandler();
     }
     return () => {
